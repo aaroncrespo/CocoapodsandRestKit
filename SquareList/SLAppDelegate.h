@@ -2,14 +2,19 @@
 //  SLAppDelegate.h
 //  SquareList
 //
-//  Created by aaron crespo on 9/27/12.
+//  Created by aaron crespo on 9/26/12.
 //  Copyright (c) 2012 aaroncrespo. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface SLAppDelegate : UIResponder <UIApplicationDelegate>
+extern NSString * const SLAPPInitialLoad;
 
-@property (strong, nonatomic) UIWindow *window;
+@interface SLAppDelegate : UIResponder <UIApplicationDelegate, UITableViewDataSource>
 
+@property (nonatomic, retain) IBOutlet UIWindow *window;
+
+@property (nonatomic, retain) IBOutlet NSMutableArray *peopleManager;
+
+- (IBAction)getMorePeople:(id)sender;
 @end

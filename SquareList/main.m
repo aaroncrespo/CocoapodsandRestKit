@@ -2,7 +2,7 @@
 //  main.m
 //  SquareList
 //
-//  Created by aaron crespo on 9/27/12.
+//  Created by aaron crespo on 9/26/12.
 //  Copyright (c) 2012 aaroncrespo. All rights reserved.
 //
 

@@ -2,45 +2,54 @@
 //  SLAppDelegate.m
 //  SquareList
 //
-//  Created by aaron crespo on 9/27/12.
+//  Created by aaron crespo on 9/26/12.
 //  Copyright (c) 2012 aaroncrespo. All rights reserved.
 //
 
+#import <RestKit/RestKit.h>
+
+
 #import "SLAppDelegate.h"
+#import "SLSquareEmployee.h"
+
+NSString * const SLAPPInitialLoad = @"com.square.networking.operation.finish";
 
 @implementation SLAppDelegate
 
+@synthesize peopleManager = _peopleManager;
+@synthesize window = _window;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    self.peopleManager = [@[] mutableCopy];
+    [self getMorePeople:self];
     return YES;
 }
-							
-- (void)applicationWillResignActive:(UIApplication *)application
-{
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-}
 
-- (void)applicationDidEnterBackground:(UIApplication *)application
+- (IBAction)getMorePeople:(id)sender
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    NSURL *url = [NSURL URLWithString:@"http://api.twitter.com/1/statuses/public_timeline.json"];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    //shoots off an async nsoperation to pull some people from twitter
+    //SLSquareEmployee is a Twitter user See SLSquareEmployee.h or json mapping for property breakdown    
+    RKResponseDescriptor *responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[SLSquareEmployee mapping]
+                                                                                       pathPattern:nil
+                                                                                           keyPath:nil
+                                                                                       statusCodes:nil];
+    
+    RKObjectRequestOperation *operation = [[RKObjectRequestOperation alloc] initWithRequest:request
+                                                                        responseDescriptors:@[responseDescriptor]];
+    
+    [operation setCompletionBlockWithSuccess:^(RKObjectRequestOperation *operation, RKMappingResult *result) {
+        [self.peopleManager addObjectsFromArray:[result array]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:SLAPPInitialLoad object:self];
+        
+    } failure:^(RKObjectRequestOperation *operation, NSError *error) {
+        NSLog(@"Failed with error: %@", [error localizedDescription]);
+    }];
+    
+    [operation start];
 }
-
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-}
-
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application
-{
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
-
 @end
