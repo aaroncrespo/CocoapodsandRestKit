@@ -1,0 +1,47 @@
+
+PODS:
+- AFNetworking (HEAD based on 1.0)
+- ISO8601DateFormatter (0.6)
+- LibComponentLogging-Core (1.3.1)
+- LibComponentLogging-NSLog (1.0.4):
+  - LibComponentLogging-Core (>= 1.1.6)
+- RestKit (0.20.0):
+  - RestKit/Core (= 0.20.0)
+- RestKit/Core (0.20.0):
+  - RestKit/CoreData
+  - RestKit/Network
+  - RestKit/ObjectMapping
+- RestKit/CoreData (0.20.0)
+- RestKit/Network (0.20.0):
+  - AFNetworking (HEAD)
+  - LibComponentLogging-NSLog (>= 1.0.4)
+  - RestKit/ObjectMapping
+  - RestKit/Support
+  - SOCKit
+- RestKit/ObjectMapping (0.20.0):
+  - ISO8601DateFormatter (>= 0.6)
+- RestKit/Support (0.20.0)
+- SOCKit (1.0)
+
+DEPENDENCIES:
+- RestKit (from `https://github.com/RestKit/RestKit.git', branch `feature/reboot-networking-layer')
+
+EXTERNAL SOURCES:
+  RestKit:
+    :git: https://github.com/RestKit/RestKit.git
+    :branch: feature/reboot-networking-layer
+
+SPEC CHECKSUMS:
+  AFNetworking: e9e0911a6afd846691672a4d832fb531e8bae72f
+  ISO8601DateFormatter: dc05a2481edf49668d85d3ff8c466c32eb544780
+  LibComponentLogging-Core: 1769ab8f29411fb99b5c9391a0d6c2f907ae7ec0
+  LibComponentLogging-NSLog: a4bb0f6de612eef7b5fcdbd9cc96dc868ba1f2df
+  RestKit: e91250be5c9f9cabce3495983c26b8674bc72863
+  RestKit/Core: e91250be5c9f9cabce3495983c26b8674bc72863
+  RestKit/CoreData: e91250be5c9f9cabce3495983c26b8674bc72863
+  RestKit/Network: e91250be5c9f9cabce3495983c26b8674bc72863
+  RestKit/ObjectMapping: e91250be5c9f9cabce3495983c26b8674bc72863
+  RestKit/Support: e91250be5c9f9cabce3495983c26b8674bc72863
+  SOCKit: 9d71b00c699cf5aa2989d6aa12f3392b048123db
+
+COCOAPODS: 0.14.0
